@@ -38,6 +38,7 @@
     font-size: 1rem;
     text-decoration: none;
     color: var(--ink);
+    cursor: pointer;
   }
   .btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
   .btn-green { background: var(--green); }
@@ -49,10 +50,50 @@
   .hustle p { margin: 0; color: var(--muted); }
   ol { padding-left: 22px; }
   li { margin-bottom: 8px; }
-  .offer { background: var(--panel); border: 2px solid var(--ink); border-radius: 12px; padding: 26px 22px; margin: 38px 0; text-align: center; }
-  .price { font-family: Arial, Helvetica, sans-serif; font-size: 1.9rem; font-weight: 700; margin: 6px 0; }
+
+  .offer {
+    background: var(--panel);
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    margin: 38px 0;
+    text-align: center;
+    overflow: hidden;
+    transition: box-shadow .3s, background .3s;
+  }
+  .offer-top {
+    background: var(--ink);
+    color: #fff;
+    padding: 18px 22px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .offer-top .label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--lemon);
+    margin: 0 0 4px;
+  }
+  .old-price {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  .old-price s {
+    text-decoration-line: line-through;
+    text-decoration-thickness: 3px;
+    text-decoration-color: var(--green);
+  }
+  .offer-bottom { padding: 26px 22px; }
+  .price { font-family: Arial, Helvetica, sans-serif; font-size: 1.9rem; font-weight: 700; margin: 0 0 10px; }
   .small { font-size: .9rem; color: var(--muted); font-family: Arial, Helvetica, sans-serif; }
+  .offer-bottom .btn { margin-top: 8px; }
+
+  .offer.flash { box-shadow: 0 0 0 6px var(--green); background: #f6fff2; }
   footer { padding: 10px 0 50px; text-align: center; }
+  html { scroll-behavior: smooth; }
 </style>
 </head>
 <body>
@@ -99,10 +140,19 @@
   </section>
 
   <div class="offer" id="buy">
-    <h2>Early Bird price</h2>
-    <div class="price">$5.99 (about R119.00)</div>
-    <p class="small">Instant download after payment. Secure checkout by Gumroad.</p>
-    <a class="btn btn-buy" href="https://cashjoy.gumroad.com/l/max_profits" target="_blank" rel="noopener">Buy Now</a>
+
+    <div class="offer-top">
+      <p class="label">Black Friday</p>
+      <p class="old-price"><s>$47</s></p>
+    </div>
+
+    <div class="offer-bottom">
+      <div class="price">$5.99 (about R119)</div>
+      <p class="small">Instant download after payment. Secure checkout by Gumroad.</p>
+      <p class="small">Not a get-rich-quick scheme. Results depend on your effort, time, and circumstances, and are not guaranteed.</p>
+      <a class="btn btn-buy" href="https://cashjoy.gumroad.com/l/max_profits" target="_blank" rel="noopener">Buy Now</a>
+    </div>
+
   </div>
 
   <footer>
@@ -110,6 +160,18 @@
   </footer>
 
 </main>
+
+<script>
+  document.querySelectorAll('a[href="#buy"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var box = document.getElementById('buy');
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      box.classList.add('flash');
+      setTimeout(function () { box.classList.remove('flash'); }, 1200);
+    });
+  });
+</script>
 
 </body>
 </html>
